@@ -1,7 +1,16 @@
 import 'dart:math';
 
+import 'package:dart_collections_journey/names.dart';
+
 void main() {
+  separator(1);
   task01();
+  separator(2);
+  task02();
+}
+
+void separator(int task) {
+  print('============ Task $task ============');
 }
 
 // Task 1: Списки (List)
@@ -37,4 +46,34 @@ void task01() {
     }
   }
   print('кількість парних чисел: ${temp.length}');
+}
+
+// Task 2: Множини (Set)
+// Створіть окремий файл names.dart.
+// У цьому файлі створіть дві змінні:
+// List<String> ukrainianNames1
+// List<String> ukrainianNames2
+// За допомогою ChatGPT згенеруйте список із 50 українських імен та збережіть його в ukrainianNames1.
+// За допомогою DeepSeek згенеруйте інший список із 50 українських імен для ukrainianNames2.
+// Поверніться до основного файлу з домашнім завданням (lib/main.dart).
+// Створіть Set uniqueNames1 і додайте до нього всі імена з ukrainianNames1.
+// Створіть Set uniqueNames2 і додайте до нього всі імена з ukrainianNames2.
+// Створіть новий Set зі спільними іменами обох списків. Виведіть кількість елементів у цій множині.
+// Створіть множину з іменами, що є в uniqueNames1, але яких немає в uniqueNames2. Виведіть ці імена.
+// Створіть множину з іменами, що є в uniqueNames2, але яких немає в uniqueNames1. Виведіть ці імена.
+
+void task02() {
+  Set<String> uniqueNames1 = ukrainianNames1.toSet();
+  Set<String> uniqueNames2 = ukrainianNames2.toSet();
+  Set<String> commonNames = uniqueNames1.intersection(uniqueNames2);
+  print('кількість спільних імен: ${commonNames.length}');
+  Set<String> onlyInUnique1 = uniqueNames1.difference(uniqueNames2);
+  print('імена що є лише в першому списку: ${onlyInUnique1.join(', ')}');
+  Set<String> onlyInUnique2 = uniqueNames2.difference(uniqueNames1);
+  print('імена що є лише в другому списку: ${onlyInUnique2.join(', ')}');
+  Set<String> uniqueNames =
+      {...uniqueNames1, ...uniqueNames2}.difference(commonNames);
+  // or
+  // Set<String> uniqueNames = {...onlyInUnique1, ...uniqueNames2}
+  print('імена що є лише в одному зі списків: ${uniqueNames.join(', ')}');
 }
