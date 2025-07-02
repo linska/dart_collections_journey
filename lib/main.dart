@@ -1,12 +1,15 @@
 import 'dart:math';
 
 import 'package:dart_collections_journey/names.dart';
+import 'package:word_generator/word_generator.dart';
 
 void main() {
   separator(1);
   task01();
   separator(2);
   task02();
+  separator(3);
+  task03();
 }
 
 void separator(int task) {
@@ -24,7 +27,6 @@ void separator(int task) {
 // Виведіть результат.
 // Створіть порожній список temp. За допомогою циклу for-in переберіть numbers. Додайте до temp лише ті елементи, що діляться на 2 без залишку.
 // Виведіть довжину списку temp.
-
 void task01() {
   List<int> numbers = List.generate(100, (i) => Random().nextInt(101));
   print('список випадкових чисел: ${numbers.join(', ')}');
@@ -61,7 +63,6 @@ void task01() {
 // Створіть новий Set зі спільними іменами обох списків. Виведіть кількість елементів у цій множині.
 // Створіть множину з іменами, що є в uniqueNames1, але яких немає в uniqueNames2. Виведіть ці імена.
 // Створіть множину з іменами, що є в uniqueNames2, але яких немає в uniqueNames1. Виведіть ці імена.
-
 void task02() {
   Set<String> uniqueNames1 = ukrainianNames1.toSet();
   Set<String> uniqueNames2 = ukrainianNames2.toSet();
@@ -76,4 +77,23 @@ void task02() {
   // or
   // Set<String> uniqueNames = {...onlyInUnique1, ...uniqueNames2}
   print('імена що є лише в одному зі списків: ${uniqueNames.join(', ')}');
+}
+
+// Task 3: Словники (Map)
+// Підключіть до проєкту пакет word_generator (див. https://pub.dev/packages/word_generator).
+// Створіть список nounsList із 50 випадкових слів (як це зробити, дивіться в документації: https://pub.dev/packages/word_generator#randomnouns).
+// Із nounsList створіть Map<String, int> nounsMap, де:
+// ключ — слово;
+// значення — кількість символів у цьому слові.
+// Створіть нову змінну Map<String, int> tempNouns.
+// Додайте у tempNouns лише ті пари зі nounsMap, де довжина слова — парне число.
+// Виведіть всі ключі зі tempNouns.
+void task03() {
+  final wordGenerator = WordGenerator();
+  List<String> nouns = wordGenerator.randomNouns(50);
+  Map<String, int> nounsMap =
+      Map.fromIterables(nouns, nouns.map((e) => e.length));
+  final tempNounsEntries = nounsMap.entries.where((e) => e.value % 2 == 0);
+  Map<String, int> tempNouns = Map.fromEntries(tempNounsEntries);
+  print('слова, довжина яких парне число: ${tempNouns.keys.join(', ')}');
 }
