@@ -28,12 +28,12 @@ void separator(int task) {
 // Створіть порожній список temp. За допомогою циклу for-in переберіть numbers. Додайте до temp лише ті елементи, що діляться на 2 без залишку.
 // Виведіть довжину списку temp.
 void task01() {
-  List<int> numbers = List.generate(100, (i) => Random().nextInt(101));
+  final List<int> numbers = List.generate(100, (i) => Random().nextInt(101));
   print('список випадкових чисел: ${numbers.join(', ')}');
   print('65-й елемент: ${numbers[64]}');
   numbers.insert(49, 1000000000);
-  List<int> bannedNumbers = [24, 45, 66, 88];
-  numbers.removeWhere((e) => bannedNumbers.contains(e));
+  final List<int> bannedNumbers = [24, 45, 66, 88];
+  numbers.removeWhere(bannedNumbers.contains);
   int sum = 0;
   for (var i = 0; i < numbers.length; i++) {
     if (numbers[i] % 3 == 0) {
@@ -41,7 +41,7 @@ void task01() {
     }
   }
   print('сума елементів, що діляться на 3 без залишку: $sum');
-  List<int> temp = [];
+  final List<int> temp = [];
   for (var i in numbers) {
     if (i % 2 == 0) {
       temp.add(i);
@@ -64,15 +64,15 @@ void task01() {
 // Створіть множину з іменами, що є в uniqueNames1, але яких немає в uniqueNames2. Виведіть ці імена.
 // Створіть множину з іменами, що є в uniqueNames2, але яких немає в uniqueNames1. Виведіть ці імена.
 void task02() {
-  Set<String> uniqueNames1 = ukrainianNames1.toSet();
-  Set<String> uniqueNames2 = ukrainianNames2.toSet();
-  Set<String> commonNames = uniqueNames1.intersection(uniqueNames2);
+  final Set<String> uniqueNames1 = ukrainianNames1.toSet();
+  final Set<String> uniqueNames2 = ukrainianNames2.toSet();
+  final Set<String> commonNames = uniqueNames1.intersection(uniqueNames2);
   print('кількість спільних імен: ${commonNames.length}');
-  Set<String> onlyInUnique1 = uniqueNames1.difference(uniqueNames2);
+  final Set<String> onlyInUnique1 = uniqueNames1.difference(uniqueNames2);
   print('імена що є лише в першому списку: ${onlyInUnique1.join(', ')}');
-  Set<String> onlyInUnique2 = uniqueNames2.difference(uniqueNames1);
+  final Set<String> onlyInUnique2 = uniqueNames2.difference(uniqueNames1);
   print('імена що є лише в другому списку: ${onlyInUnique2.join(', ')}');
-  Set<String> uniqueNames =
+  final Set<String> uniqueNames =
       {...uniqueNames1, ...uniqueNames2}.difference(commonNames);
   // or
   // Set<String> uniqueNames = {...onlyInUnique1, ...uniqueNames2}
@@ -90,10 +90,10 @@ void task02() {
 // Виведіть всі ключі зі tempNouns.
 void task03() {
   final wordGenerator = WordGenerator();
-  List<String> nouns = wordGenerator.randomNouns(50);
-  Map<String, int> nounsMap =
+  final List<String> nouns = wordGenerator.randomNouns(50);
+  final Map<String, int> nounsMap =
       Map.fromIterables(nouns, nouns.map((e) => e.length));
-  final tempNounsEntries = nounsMap.entries.where((e) => e.value % 2 == 0);
-  Map<String, int> tempNouns = Map.fromEntries(tempNounsEntries);
+  final tempNounsEntries = nounsMap.entries.where((e) => e.value.isEven);
+  final Map<String, int> tempNouns = Map.fromEntries(tempNounsEntries);
   print('слова, довжина яких парне число: ${tempNouns.keys.join(', ')}');
 }
